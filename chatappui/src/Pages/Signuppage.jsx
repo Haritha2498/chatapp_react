@@ -63,7 +63,6 @@ const Signuppage = () => {
         password
 
       };
-      // console.log(userDetails)
       signupSubmit(userDetails);
   }
 
@@ -107,13 +106,6 @@ const Signuppage = () => {
           value={password}
           onChange={(e)=>setPassword(e.target.value)}
           />
-    {/* <span id="pid1" className="text-emerald-500 ml-[30%] mt-10"> </span>
-    <br/>
-    <input className="w-[50%] h-[5%] mt-4 ml-[20%] p-2 hover:bg-blue-100" type="password" placeholder="Password again"  id="pass2" name="pass2"/>
-    <br/>
-    
-    <span id="pid2" className="text-red-500 ml-[30%] mt-10"></span>
-    <br/> */}
     <button className="w-3/6 h-10 bg-slate-100 border-2 rounded-2xl mt-12 ml-[20%] text-blue-700 hover:bg-blue-200" type="submit" > SIGN UP  </button>
 
 </form>

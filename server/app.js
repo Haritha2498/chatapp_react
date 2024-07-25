@@ -52,6 +52,7 @@ database.once("connected",()=>
 const userdetails=require('/home/haritha/chatapp_react/server/models/schema.js')
 const usersprofile=require('/home/haritha/chatapp_react/server/models/profile.js')
 const userchats=require('/home/haritha/chatapp_react/server/models/chatmsg.js')
+const userblocklist=require('/home/haritha/chatapp_react/server/models/blockusers.js')
 
 
 const verifyToken=require("./middleware/authMiddleware")
@@ -99,9 +100,6 @@ app.post('/signup',(async(req,res)=>
             res.status(500).send('Internal Server Error');
         }
     }))
-
-
-    // //change profile
 
 
 
@@ -302,6 +300,84 @@ app.delete('/delete',verifyToken,async(req,res)=>
         res.status(500).send({ error: 'Failed to send message' });
     }
     })
+
+//function to block user
+
+app.post('/blockuser',verifyToken,async(req,res)=>{
+    try{
+    const name=req.body;
+    const logeduser=req.username;
+    let userblock=await userblocklist.findOne({user:logeduser})
+    if(!userblock){
+        userblock=await userblocklist.create({user:logeduser,blocklist:[]})
+    }
+    const blocklistarr=userblock.blocklist;
+
+    if (blocklistarr.some(blocked => blocked.friendname === name.name)) {
+            console.log("User already blocked");
+        } else {
+            userblock.blocklist.push({ friendname: name.name });
+            await userblock.save();
+            console.log("User blocked");
+        }
+    res.status(200).send({ message: 'User unblocked' });
+    }
+    catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).send({ error: 'Failed to send message' });
+}
+}
+)
+
+    //function to check blockstatus of user
+
+app.get('/isvalid/:friend',verifyToken,async(req,res)=>{
+    try{
+        
+        const logeduser=req.username;
+        const friend=req.params.friend;
+        let userblock=await userblocklist.findOne({user:logeduser})
+        const blocklistarr=userblock.blocklist;
+        let data=0;
+        if (blocklistarr.some(blocked => blocked.friendname === friend)) {
+            data=0;
+        } else {
+            data=1;
+        }
+        res.json(data)
+
+    }
+    catch (error) {
+    console.error('Error sending message:', error);
+}
+})
+
+    //function to unblock user 
+
+app.post('/unblockuser', verifyToken, async (req, res) => {
+    try {
+        const  name  = req.body;
+        const logeduser = req.username;
+        let userblock = await userblocklist.findOne({ user: logeduser });
+        if (!userblock) {
+            return res.status(404).send({ error: 'User block list not found' });
+        }
+        const blocklistarr = userblock.blocklist;
+
+        const index = blocklistarr.findIndex(blocked => blocked.friendname === name.friend);
+        if (index !== -1) {
+            blocklistarr.splice(index, 1);
+            await userblock.save();
+            res.status(200).send({ message: 'User unblocked' });
+        } else {
+            res.status(200).send({ error: 'User not found in block list' });
+        }
+    } catch (error) {
+        console.error('Error unblocking user:', error);
+        res.status(500).send({ error: 'Failed to unblock user' });
+    }
+});
+
 
 
 

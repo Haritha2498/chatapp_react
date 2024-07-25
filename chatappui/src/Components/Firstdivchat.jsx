@@ -17,8 +17,8 @@ const Firstdivchat = () => {
           console.log(data,"kkk");
           setProfile(data)
         }
-          catch (error){
-            console.log("errorss",error)
+        catch (error){
+          console.log("errorss",error)
           
         }
       }
@@ -40,7 +40,6 @@ const Firstdivchat = () => {
         }
         catch(error){
           console.log("errror in logout")
-            // toast.error("something went wrong")
         }}
 
     }
@@ -61,7 +60,6 @@ const Firstdivchat = () => {
 
         <h3 className="mt-20 ml-[30%] mr-[30%] "><button onClick={logout} >Logout</button></h3>
 
-        {/* <h3 className="mt-20 ml-[30%] mr-[30%] "> <Link to='/'>Log_out</Link></h3>  */}
     </div>
     
     </>

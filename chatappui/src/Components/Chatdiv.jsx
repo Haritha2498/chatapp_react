@@ -9,7 +9,7 @@ const Chatdiv = () => {
       const fetchprofile=async ()=>
       {
         try{
-            console.log('hj')
+          console.log('hj')
           const res=await fetch('/api/getprofile')
           const data=await res.json()
           console.log(data,"kkk");
@@ -24,7 +24,7 @@ const Chatdiv = () => {
       console.log("profile fetched")
     },[])
     let name=profile.logeduser
-    // const username=name.toUpperCase();
+
 
   return (
     <>

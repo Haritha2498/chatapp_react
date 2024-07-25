@@ -17,6 +17,7 @@ const Settingpage = () => {
     const [about,setAbout]=useState('')
     const navigate=useNavigate();
 
+    //function to change user profile
 
     const submitform= async (e) => {
         e.preventDefault();
@@ -53,6 +54,8 @@ const Settingpage = () => {
 
     const [profile,setProfile]=useState('')
 
+    //function to display user details as placeholder values
+
     useEffect(()=>{
       const fetchprofile=async ()=>
       {
@@ -75,7 +78,7 @@ const Settingpage = () => {
       console.log("profile fetched")
     },[])
 
-
+    //function to delete a user
 
     const deleteuser=async()=>{
       console.log("delete")
@@ -87,7 +90,6 @@ const Settingpage = () => {
       });
       const response=await fetch ('/api/logout');
       if(response.ok){
-        // toast.success("Logout Success")
         console.log("logout")
         navigate('/');
       }
@@ -102,7 +104,6 @@ const Settingpage = () => {
     <div className="w-10/12  h-screen mx-auto  " style={{backgroundImage: `url(${wel})`,backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat',}}>
         <br/>
         <p className="text-lime-700 text-3xl font-semibold ml-24 mt-10">Profile</p>
-        {/* <button class="float-right mr-20 text-lime-700 text-xl font-semibold"></button>  */}
         
         <a href="/home"> <button className="float-right mr-[20%] text-lime-700 text-3xl font-semibold">HOME</button> </a>
         <br />
@@ -116,30 +117,26 @@ const Settingpage = () => {
             <p className="text-lg ml-8 text-yellow-600">NAME:</p>
             
             <input type="text" 
-                    name="setname" 
-                    id="setname" 
-                    className="w-10/12 h-16 ml-4 bg-slate-100"
-                    placeholder={profile.setname}
-                    
-                    value={setname}
-                    onChange={(e) => setSetname(e.target.value)}
-
-                    />
+              name="setname" 
+              id="setname" 
+              className="w-10/12 h-16 ml-4 bg-slate-100"
+              placeholder={profile.setname}
+              value={setname}
+              onChange={(e) => setSetname(e.target.value)}
+              />
             </div>
 
             <div className="w-4/12 bg-slate-100 ml-32 mt-28 h-24"> 
             <p className="text-lg ml-8 text-yellow-600">ABOUT: </p>
         
             <input type="text"
-                    name="about" 
-                    id="about" 
-                    className="w-10/12 h-16 ml-8 bg-slate-100"
-                    placeholder={profile.about}
-                    
-                    value={about}
-                    onChange={(e) => setAbout(e.target.value)}
-
-                    />
+              name="about" 
+              id="about" 
+              className="w-10/12 h-16 ml-8 bg-slate-100"
+              placeholder={profile.about}
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
+            />
             </div>
             <button type="submit" className="text-lime-700 text-2xl font-semibold ml-40 mt-8 border-2 border-gray-400 rounded-xl p-2" >change</button>
 

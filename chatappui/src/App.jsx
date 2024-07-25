@@ -30,11 +30,10 @@ function App() {
 
 
   <Route path="/" element={<Mainlayout/>} >
-     
+    
       <Route path='/home' element={<Homepage/>}/>
       
       <Route path='/chat/:friendname' element={<Chatpage/>}/>
-      {/* <Route path='/personalinfo/:friendname' element={<Personalinfpage/>}/> */}
 </Route>
 
 

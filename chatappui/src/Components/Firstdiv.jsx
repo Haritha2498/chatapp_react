@@ -32,15 +32,13 @@ const Firstdiv = () => {
       if (confirm("Are you sure you want to log out?")) {
         try{
         const res=await fetch ('/api/logout');
-            if(res.ok){
-                // toast.success("Logout Success")
-                console.log("logout")
-                navigate('/');
-            }
+          if(res.ok){
+            console.log("logout")
+            navigate('/');
+          }
         }
         catch(error){
           console.log("errror in logout")
-            // toast.error("something went wrong")
         }}
 
     }
@@ -61,7 +59,6 @@ const Firstdiv = () => {
 
         <h3 className="mt-20 ml-[30%] mr-[30%] "><button onClick={logout} >Logout</button></h3>
 
-        {/* <h3 className="mt-20 ml-[30%] mr-[30%] "> <Link to='/'>Log_out</Link></h3>  */}
     </div>
     
     </>

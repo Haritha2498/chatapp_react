@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 import wel from '/home/haritha/chatapp_react/chatappui/src/assets/Images/wel.jpg';
 
 
 const style={
-  backgroundImage:`url(${wel})`,
-  backgroundRepeat:'no-repeat',
-  backgroundSize:'cover'
+    backgroundImage:`url(${wel})`,
+    backgroundRepeat:'no-repeat',
+    backgroundSize:'cover'
 }
 
 const Personalinfpage = () => {
 
     const name=useParams();
     console.log(name)
+    console.log(name.friendname)
+    const navigate=useNavigate();
 
 
+    const blockfriendname={name:name.friendname}
+    console.log(blockfriendname,"gh")
     const [frienddetails,setFreinddetails]=useState([]);
+
+    //function to display freind details
+
     useEffect(()=>{
 
         const fetchfrienddetails=async ()=>
@@ -35,7 +43,26 @@ const Personalinfpage = () => {
         }
         fetchfrienddetails();
     },[])
-  return (
+
+    //function to block user
+
+    const blockuser=async()=>{
+        console.log("userblocked")
+        const confirm=window.confirm('Sure want to block friend:');
+        if(!confirm) return;
+        console.log("blocking")
+        const res=await fetch('/api/blockuser',{
+        method:"POST",
+        headers:{"Content-Type":"application/json",},
+        body: JSON.stringify(blockfriendname)
+        })
+        if (res.ok) {
+            alert('User has been blocked successfully.');
+            navigate(`/chat/${name.friendname}`);
+        } 
+    }
+
+return (
     <>
     
     <div className="h-screen" style={{backgroundImage: `url(${wel})`,backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat',}}>
@@ -65,17 +92,11 @@ const Personalinfpage = () => {
         </div>
         
          {/* <p className="text-red-700 font-bold">DELETE CHATS</p> */}
-        {/* <p className="text-red-700 font-bold">BLOCK USER</p>  */}
-
+        <button className="text-red-700 font-bold" onClick={blockuser}>BLOCK USER</button> 
     </div>
-</div>
-
-    
-    
-    
-    
+    </div>
     </>
-  )
+    )
 }
 
 export default Personalinfpage
