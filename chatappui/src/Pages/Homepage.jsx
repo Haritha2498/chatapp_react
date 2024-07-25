@@ -8,13 +8,13 @@ const Homepage = () => {
   return (
     <>
 
-    {/* <div className="inline-flex w-full h-screen" > */}
+    <div className="inline-flex w-full h-screen" >
 
-    {/* <Firstdiv/> */}
-    {/* <Usercontacts/> */}
+    <Firstdiv/>
+    <Usercontacts/>
     <Chatdiv/>
     
-    {/* </div> */}
+    </div>
     
     </>
   )

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 
 
+
 const Firstdiv = () => {
 
     const [profile,setProfile]=useState('')
@@ -27,18 +28,20 @@ const Firstdiv = () => {
 
     const navigate=useNavigate();
     const logout=async()=>{
+
+      if (confirm("Are you sure you want to log out?")) {
         try{
         const res=await fetch ('/api/logout');
             if(res.ok){
                 // toast.success("Logout Success")
                 console.log("logout")
-                navigate('/')
+                navigate('/');
             }
         }
         catch(error){
           console.log("errror in logout")
             // toast.error("something went wrong")
-        }
+        }}
 
     }
 

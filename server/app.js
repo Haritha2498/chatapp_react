@@ -62,48 +62,36 @@ const verifyToken=require("./middleware/authMiddleware")
 app.post('/signup',(async(req,res)=>
     {
         const {username, useremail, password} = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        
+        const hashedPassword = await bcrypt.hash(password, 10);       
         const newuserr={username, useremail, hashedPassword}
-        // console.log(newuserr)
         try{
             const exist=await userdetails.findOne({username:username});
             if(exist){
                 console.log("exist")
-                // res.status(401).send("User already exists. Click login")
                 res.status(401).json({ message: "User already exists. Click login" });
             }
             const exist1=await userdetails.findOne({useremail:useremail});
             if(exist1){
                 console.log("exist")
-                // res.status(401).send("User already exists. Click login")
                 res.status(402).json({ message: "User already exists. Click login" });
             }
             else{
                 const user=await userdetails.create(newuserr)
-                // req.session.username = username;
-                // console.log(req.session.username ,"session user inside login")
-                    // console.log("data")
-                    // res.redirect('/login')
-            
-
-            const token = jwt.sign(
+                const token = jwt.sign(
                 { userId: user._id, username: user.username },
                 "your-secret-key",
                 {
-                  expiresIn: "1h",
+                    expiresIn: "1h",
                 }
-              );
-          
-              res.cookie("Authtoken", token);  
-            //   console.log(token)
-              res.json({
+                );
+
+                res.cookie("Authtoken", token);  
+                res.json({
                 status: true,
                 message: "login success", 
                 token,
                 username: user.username
-              });
-          
+            });
             }
         }
         catch(error){
@@ -127,9 +115,6 @@ app.post('/login',async(req,res)=>
             return res.status(401).send("Invalid username or password. Please signup first");
         }
 
-        // console.log(user)
-        // console.log(user.username)
-       
     const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
     if (!passwordMatch) {
       return res
@@ -145,7 +130,7 @@ app.post('/login',async(req,res)=>
     );
 
     res.cookie("Authtoken", token);  
-    // console.log(token)
+
     res.json({
       status: true,
       message: "login success", 
@@ -189,27 +174,17 @@ app.post('/changeprofile',verifyToken, async(req,res)=>
         }
     })
 
-//function to display logeduser details as placeholder in profile setting page..
-
-// app.get('getinfo',verifyToken,async(req,res)=>{
-//     try{
-//         const logeduser=req.username;
-//         const exist=await usersprofile.findOne({logeduser:logeduser})
-//         res.json(exist);
-//     }
-//     catch(error){
-//         console.log(error);
-//         res.status(500).json({ message: error.message });
-//     }
-// })
-
-
-
 app.get('/profile', verifyToken,async(req,res)=>{
         const logeduser=req.username;
-        console.log("profile")
         const exist=await usersprofile.findOne({logeduser:logeduser})
-        console.log(exist);
+        res.json(exist)
+
+}) 
+
+
+app.get('/getprofile', verifyToken,async(req,res)=>{
+        const logeduser=req.username;
+        const exist=await usersprofile.findOne({logeduser:logeduser})
         res.json(exist)
 
 }) 
@@ -263,7 +238,7 @@ app.post('/sendmsg/:name',verifyToken,async(req,res)=>
 
     let userchat=await userchats.findOne({sender:sender,receiver:receiver})
     if(!userchat){
-         userchat=await userchats.create(newmsg)
+        userchat=await userchats.create(newmsg)
     }
     userchat.chats.push({msg,time})
     await userchat.save();
@@ -285,25 +260,19 @@ app.post('/sendmsg/:name',verifyToken,async(req,res)=>
     const sender =req.username;
     try{
         const senderuserchats = await userchats.findOne({ sender: sender, receiver: receiver });
-        // console.log(senderuserchats);
         let sendermessages=[];
         if(senderuserchats){
         sendermessages=senderuserchats.chats
-        // console.log(sendermessages);
         }
         
 
         const receiveruserchats = await userchats.findOne({ sender: receiver, receiver: sender });
-        // console.log(receiveruserchats);
         let receivermessages=[]
         if(receiveruserchats){
         receivermessages=receiveruserchats.chats
-        // console.log(receivermessages);
         }
         
         const data=[sendermessages,receivermessages];
-        // console.log(data);
-
         res.json(data)
 
     }
@@ -318,30 +287,29 @@ app.post('/sendmsg/:name',verifyToken,async(req,res)=>
 //function to delete a user
 
 
-// app.delete('/delete',async(req,res)=>
-//     {
-//     try{
-//     req.session.destroy();
-//     const deleteuser=await userdetail.findOneandDelete({username:logeduser})
-//     const deleteprofile=await usersprofile.findOneandDelete({logeduser:logeduser})
-//     const deleteuserchats=await userchats.deleteMany({sender:logeduser}||{receiver:logeduser})
-//     res.redirect('/')
-//     }
-//         catch (error) {
-//         console.error('Error sending message:', error);
-//         res.status(500).send({ error: 'Failed to send message' });
-//     }
-//     })
+app.delete('/delete',verifyToken,async(req,res)=>
+    {
+    try{
+        const logeduser=req.username;
+        const deleteuser=await userdetails.findOneAndDelete({username:logeduser})
+        const deleteprofile=await usersprofile.findOneAndDelete({logeduser:logeduser})
+        res.clearCookie("Authtoken");
+        console.log("logout")
+        res.status(200).send("Logout successful");
+    }
+        catch (error) {
+        console.error('Error sending message:', error);
+        res.status(500).send({ error: 'Failed to send message' });
+    }
+    })
 
 
 
 app.get("/logout", (req, res) => {
 
-    console.log("ghjk")
     res.clearCookie("Authtoken");
-    console.log("logout")
     res.status(200).send("Logout successful");
-
+    console.log("logout")
     return res;
   });
 

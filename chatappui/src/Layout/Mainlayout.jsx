@@ -6,11 +6,11 @@ import { Outlet } from 'react-router-dom'
 const Mainlayout = () => {
   return (
     <>
-    <div className="inline-flex w-full h-screen" >
-    <Firstdiv/>
-    <Usercontacts/>
+    {/* <div className="inline-flex w-full h-screen" > */}
+    {/* <Firstdiv/> */}
+    {/* <Usercontacts/> */}
     <Outlet/>
-    </div>
+    {/* </div> */}
     </>
   )
 }

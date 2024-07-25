@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
+
+import wel from '/home/haritha/chatapp_react/chatappui/src/assets/Images/wel.jpg';
+
+
+const style={
+  backgroundImage:`url(${wel})`,
+  backgroundRepeat:'no-repeat',
+  backgroundSize:'cover'
+}
+
 const Personalinfpage = () => {
 
     const name=useParams();
@@ -28,24 +38,29 @@ const Personalinfpage = () => {
   return (
     <>
     
-    <div className="h-screen">
-    <div className="w-8/12 bg-gray-200 mx-auto mt-[5%] p-10 h-[80%]">
-        <p className="text-2xl font-semibold">PERSON PROFILE</p>
+    <div className="h-screen" style={{backgroundImage: `url(${wel})`,backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat',}}>
+        <br />
+    <div className="w-8/12 bg-gray-100 opacity-80 mx-auto mt-[5%]  p-10 h-[80%]">
+        <p className="text-3xl font-semibold">PERSON PROFILE</p>
         <a onClick={() => window.location.href = `/chat/${name.friendname}`}> <p className="text-2xl font-semibold float-right">HOME</p></a>
-        <div className="grid gap-4 mt-10 h-[60%]">
-            <img src="../src/assets/Images/dp2.jpeg" alt="" className="w-48 ml-20 h-48"/>
-
+        <div className="mt-10 h-[50%] inline-flex w-[100%]">
+            
+            <div className='inline-grid w-[40%]'>
             <div className="inline-flex">
-                <p className=" text-xl ml-20">NAME:</p>
-                <span id="name" className="text-teal-700 text-2xl ml-2">{frienddetails.usename}</span>
+                <p className=" text-2xl ml-[15%]">NAME:</p>
+                <span id="name" className="text-teal-800 text-2xl ml-8">{frienddetails.usename}</span>
             </div>
             <div className="inline-flex">
-                <p className=" text-xl ml-20">EMAIL:</p>
-                <span id="email" className="text-teal-700 text-xl ml-2">{frienddetails.email}</span>
+                <p className=" text-2xl ml-[15%]">EMAIL:</p>
+                <span id="email" className="text-teal-700 text-2xl ml-8">{frienddetails.email}</span>
             </div>
             <div className="inline-flex">
-                <p className=" text-xl ml-20">ABOUT:</p>
-                <span id="about" className="text-teal-700 text-xl ml-2">{frienddetails.about}</span>
+                <p className=" text-2xl ml-[15%]">ABOUT:</p>
+                <span id="about" className="text-teal-700 text-2xl ml-8">{frienddetails.about}</span>
+            </div>
+            </div>
+            <div className='inline-flex ml-[20%]'>
+            <img src="../src/assets/Images/dp2.jpeg" alt="" className="w-[90%] h-[70%] ml-[5%] rounded-2xl"/>
             </div>
         </div>
         

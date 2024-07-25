@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+
+import im3 from '/home/haritha/chatapp_react/chatappui/src/assets/Images/bi.jpg'
+
+
+
+
+
 const Usercontacts = () => {
   const [friends, setFriends] = useState([]);
   const [username,setUsername]=useState('')
@@ -21,7 +28,7 @@ const Usercontacts = () => {
   }, []);
 
   return (
-    <div className="w-[20%] bg-slate-300" id="middiv">
+    <div className="w-[20%]   " id="middiv" style={{backgroundImage: `url(${im3})`,backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat',}}>
       <br />
       <h3 className="text-2xl font-bold ml-10">Chats</h3>
       <div id="friendsContainer">
@@ -30,7 +37,7 @@ const Usercontacts = () => {
             return (
               <div
                 key={index}
-                className="inline-flex bg-slate-300 mt-10 w-full"
+                className="inline-flex mt-10 w-full"
                 onClick={() => window.location.href = `/chat/${friend.logeduser}`}
               >
                 <img
@@ -38,7 +45,8 @@ const Usercontacts = () => {
                   className="w-12 ml-4 rounded-full"
                   alt=""
                 />
-                <span className="mt-4 ml-6">{friend.setname}</span>
+                
+                <span className="mt-4 ml-6">{friend.setname || friend.logeduser}</span>
               </div>
             );
           }

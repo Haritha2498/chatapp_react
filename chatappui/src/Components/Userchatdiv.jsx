@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import wel from '/home/haritha/chatapp_react/chatappui/src/assets/Images/wel.jpg';
+
 const Userchatdiv = () => {
 
     const [chats,setChats]=useState([])
@@ -61,6 +63,9 @@ const Userchatdiv = () => {
           
 
           setChats(sortedData);
+
+          console.log(chats)
+
         }
         catch (error) {
           console.log("Error in loading getfriendmessages");
@@ -70,35 +75,45 @@ const Userchatdiv = () => {
       getchats();
     },[msg])
 
-    
+    const extractDateAndTime = (timestamp) => {
+              const date = new Date(timestamp);
+              const dateString = date.toLocaleDateString();
+              const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+              return { date: dateString, time: timeString };
+            };
   return (
     <>
     
-    <div className="w-[70%] bg-slate-100"> 
+    <div className="w-[70%]" style={{backgroundImage: `url(${wel})`,backgroundSize: 'cover',backgroundPosition: 'center',backgroundRepeat: 'no-repeat',}} > 
 
         {/*  <a href="/personcontactinfo">  */}
         <div className="inline-flex bg-slate-400 p-8 w-full h-28" onClick={() => window.location.href = `/personalinfo/${friendname.friendname}`} >
             
-            <img src="../src/assets/Images/dp2.jpeg"  className="w-12 ml-4 rounded-full " alt=""/>
+            <img src="../src/assets/Images/dp2.jpeg"  className="w-14 h-14 ml-4 rounded-full " alt=""/>
         
-            <span className="mt-4 ml-6" id="friendname">{name}</span>
+            <span className="mt-4 ml-6 text-2xl" id="friendname">{name}</span>
         </div>
 
         
         
         
-        <div className="h-[78%] bg-slate-200 pt-10 inline-flex w-[100%]">
+        <div className="h-[78%] pt-10 inline-flex w-[100%]">
             <span id="friendmsg" className="w-[100%] overflow-auto">
 
-            {chats.map((message, index) => (
-        <React.Fragment key={index}>
-          <span className={mymessage.includes(message) ? "w-auto h-auto float-right text-lime-700 bg-gray-200 rounded-3xl px-6 mr-10" : "h-auto bg-gray-300 float-left text-left text-lime-800 rounded-3xl px-6 ml-10"}>
-            {message.msg}
-            </span>
+            {chats.map((message, index) => {
+          const { date, time } = extractDateAndTime(message.time);
+          return (
+
+                <React.Fragment key={index}>
+                <span className={mymessage.includes(message) ? "w-auto h-auto float-right text-lime-600 bg-gray-300 rounded-xl px-6 mr-10" : "h-auto bg-gray-300 float-left text-left text-lime-600 rounded-xl px-6 ml-10"}>
+                    <span className=' text-red-700'>{message.msg}</span> <br />{time}{"  "}{date} 
+                </span>
             <br />
             <br />
+            <br/>
              </React.Fragment>
-          ))}
+          );
+})}
             </span>
             <br/>
         </div>

@@ -1,12 +1,12 @@
 import React from 'react'
-import img3 from '/home/haritha/chatapp_react/chatappui/src/assets/Images/im3.jpg';
+import signup from '/home/haritha/chatapp_react/chatappui/src/assets/Images/signup.jpg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const style={
-  backgroundImage:`url(${img3})`,
+  backgroundImage:`url(${signup})`,
   backgroundRepeat:'no-repeat',
   backgroundSize:'cover'
 }
@@ -73,10 +73,10 @@ const Signuppage = () => {
     <div className=" h-screen w-full" style={style}>
       <br />
 
-<h2 className="text-5xl text-blue-100 mt-[5%] ml-[15%]">SIGN UP</h2>
-    <div className="w-[55%] text-2xl mx-auto mt-[5%] border-2 border-slate-300 shadow-2xl shadow-gray-500" >
+<h2 className="text-5xl text-blue-800 mt-[5%] ml-[5%]">SIGN UP</h2>
+    <div className="w-[55%] text-2xl ml-[5%] mt-[5%] border-2 border-slate-300 shadow-2xl shadow-gray-500" >
 
-        <h3 className="ml-24 text-gray-100 mb-6">Create a new Account</h3>
+        <h3 className="ml-24 text-gray-800 mb-6">Create a new Account</h3>
 
 <form onSubmit={submitform}>
 
@@ -118,7 +118,7 @@ const Signuppage = () => {
 
 </form>
 
-    <p className="text-center mt-10 text-neutral-100">Already a user.. <a href="/login" className="text-blue-300 ml-10"> login </a> </p>
+    <p className="text-center mt-10 text-gray-800">Already a user.. <a href="/login" className="text-blue-800 ml-10"> login </a> </p>
     
 
 </div>

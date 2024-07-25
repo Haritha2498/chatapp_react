@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import img3 from '/home/haritha/chatapp_react/chatappui/src/assets/Images/im3.jpg';
+import login from '/home/haritha/chatapp_react/chatappui/src/assets/Images/login.jpeg';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const style={
-  backgroundImage:`url(${img3})`,
+  backgroundImage:`url(${login})`,
   backgroundRepeat:'no-repeat',
   backgroundSize:'cover'
 }
@@ -66,10 +66,11 @@ const Loginpage = () => {
     <div className=" h-screen w-full" style={style}>
     <br />
 
-    <h2 className="text-5xl text-blue-100 mt-[5%] ml-[15%]">LOG_IN</h2>
+    <h2 className="text-5xl text-violet-700 mt-[5%] ml-[55%] ">LOG_IN</h2>
+    <br />
 
 
-    <div className="w-[55%] text-2xl mx-auto mt-[5%] border-2 border-slate-300 shadow-2xl shadow-gray-500">
+    <div className="w-[40%] text-2xl ml-[50%] mt-[5%] border-2 border-violet-700 shadow-2xl shadow-gray-500 ">
         
         <form onSubmit={loginSubmit}>
             <input className="w-[50%] h-[5%] mt-[10%] ml-[20%] p-2 hover:bg-blue-100" 
@@ -91,10 +92,10 @@ const Loginpage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     
                     />
-            <br/> <br/> <br/>
-            <button className="w-3/6 h-10 bg-slate-100 border-2 rounded-2xl mt-12 ml-[20%] text-blue-700 hover:bg-blue-200" type="submit">LOG IN </button>
+            <br/> 
+            <button className="w-3/6 h-10 bg-slate-100 border-2 rounded-2xl mt-10 ml-[20%] text-blue-700 hover:bg-blue-200" type="submit">LOG IN </button>
         </form>
-    <p className="mt-10 ml-96 text-neutral-100">New User... <a href="/signup" className="text-blue-300 ml-10"> Sign_up</a> </p>
+    <p className="mt-10 mb-10 ml-[30%] text-violet-800">New User... <a href="/signup" className="text-blue-800 ml-10"> Sign_up</a> </p>
 </div>
 
 </div>
