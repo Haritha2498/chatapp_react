@@ -43,37 +43,69 @@ const Userchatdiv = () => {
 
     // function to get msg
 
-    useEffect(()=>{
-      const getchats=async ()=>
-      {
-        try{
-          const res=await fetch(`/api/getfriendmsg/${friendname.friendname}`)
-          const data=await res.json();
+    // useEffect(()=>{
+    //   const getchats=async ()=>
+    //   {
+    //     try{
+    //       const res=await fetch(`/api/getfriendmsg/${friendname.friendname}`)
+    //       const data=await res.json();
           
 
-          const mymessage = data[0];
-          const friendmessage = data[1];
-          setfriendmessage(friendmessage);
-          setmymessage(mymessage);
+    //       const mymessage = data[0];
+    //       const friendmessage = data[1];
+    //       setfriendmessage(friendmessage);
+    //       setmymessage(mymessage);
           
 
-          const flattenedData = data.flat();
+    //       const flattenedData = data.flat();
 
-          const sortedData = flattenedData.sort((a, b) => new Date(a.time) - new Date(b.time));
+    //       const sortedData = flattenedData.sort((a, b) => new Date(a.time) - new Date(b.time));
           
 
-          setChats(sortedData);
+    //       setChats(sortedData);
 
-          console.log(chats)
+    //       console.log(chats)
 
-        }
-        catch (error) {
-          console.log("Error in loading getfriendmessages");
-          console.log(error);
-        }
+    //     }
+    //     catch (error) {
+    //       console.log("Error in loading getfriendmessages");
+    //       console.log(error);
+    //     }
+    //   }
+    //   getchats();
+    // },[msg])
+
+
+    useEffect(() => {
+    const getChats = async () => {
+      try {
+        const res = await fetch(`/api/getfriendmsg/${friendname.friendname}`);
+        const data = await res.json();
+
+        const mymessage = data[0];
+        const friendmessage = data[1];
+        setfriendmessage(friendmessage);
+        setmymessage(mymessage);
+
+        const flattenedData = data.flat();
+        const sortedData = flattenedData.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+        setChats(sortedData);
+      } catch (error) {
+        console.log("Error in loading getfriendmessages");
+        console.log(error);
       }
-      getchats();
-    },[msg])
+    };
+
+    getChats();
+    const intervalId = setInterval(getChats, 2000);
+
+    return () => clearInterval(intervalId);
+  }, [friendname.friendname, msg]);
+
+
+
+
 
     const extractDateAndTime = (timestamp) => {
               const date = new Date(timestamp);
