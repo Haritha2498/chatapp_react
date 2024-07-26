@@ -291,6 +291,8 @@ app.delete('/delete',verifyToken,async(req,res)=>
         const logeduser=req.username;
         const deleteuser=await userdetails.findOneAndDelete({username:logeduser})
         const deleteprofile=await usersprofile.findOneAndDelete({logeduser:logeduser})
+        // const deleteuserchats=await userchats.deleteMany({sender:logeduser}||{receiver:logeduser})
+        const deleteuserchats=await userchats.deleteMany({ $or: [ { sender: logeduser }, { receiver: logeduser } ] })
         res.clearCookie("Authtoken");
         console.log("logout")
         res.status(200).send("Logout successful");

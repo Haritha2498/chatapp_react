@@ -39,12 +39,12 @@ const Settingpage = () => {
 
         if(res.status===200){
             toast.success('Profile Created');
-            return navigate("/setting")
+            navigate("/home")
         }
         else if(res.status===201){
             toast.success('Profile Updated');
             console.log("updated")
-            return navigate("/setting")
+            return navigate("/home")
         }
         else{
             return navigate("/setting");
